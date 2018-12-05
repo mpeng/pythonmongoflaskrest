@@ -31,3 +31,17 @@ def get_all_contact():
         return dumps(contacts)
     except Exception, e:
         return dumps({'error' : str(e)})
+
+@app.route("/", methods = ['GET'])
+def default():
+    try:
+        contacts = db.Contacts.find()
+        return dumps(contacts)
+    except Exception, e:
+        return dumps({'error' : str(e)})
+
+
+@app.route('/shutdown', methods=['GET'])
+def shutdown():
+	shutdown_server()
+	return 'Server shutting down...'
